@@ -8,6 +8,7 @@ from werkzeug.contrib.fixers import ProxyFix
 from flask_celery import make_celery
 
 from flask_restplus import Api, Resource, reqparse
+from flask_cors import CORS, cross_origin
 
 from distutils.dir_util import copy_tree
 import sqlite3
@@ -33,6 +34,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads/single/'
 app.config['UPLOAD_FOLDERS'] = 'uploads/multiple/'
 # These are the extension that we are accepting to be uploaded
 app.config['ALLOWED_EXTENSIONS'] = set(['jpg', 'jpeg'])
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config.update(
     CELERY_BROKER_URL='amqp://guest:guest@localhost:5672//',
